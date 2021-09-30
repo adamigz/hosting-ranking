@@ -91,6 +91,7 @@ class AdminActionsController extends Controller
         $post = Post::create([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
+            'slug' => Str::slug($request->input('title')),
             'description' => $request->input('description') ?? '',
             'keywords' => $request->input('keywords') ?? ''
         ]);
@@ -99,10 +100,8 @@ class AdminActionsController extends Controller
     }
     public function editPost($title, Request $request)
     {
-        $title = Str::replace('_', ' ', $title);
-
-        Validator::make(['title' => $title], [
-            'title' => 'required|string|exists:posts,title'
+        Validator::make(['slug' => $title], [
+            'slug' => 'required|string|exists:posts,slug'
         ])->validate();
 
         $validated = $request->validate([
@@ -112,10 +111,11 @@ class AdminActionsController extends Controller
             'keywords' => 'string|nullable'
         ]);
         
-        $post = Post::where('title', $title)->first();
+        $post = Post::where('slug', $title)->first();
 
         $post->title = $request->input('title');
         $post->content = $request->input('content');
+        $post->slug = Str::slug($request->input('title'));
         $post->description = $request->input('description') ?? '';
         $post->keywords = $request->input('keywords') ?? '';
 

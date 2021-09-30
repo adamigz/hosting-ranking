@@ -1,16 +1,10 @@
 @extends('layouts/app')
 
-@section('title')
-    {{ settings()->title }}
-@endsection
+@section('title', settings()->title)
 
-@section('description')
-    {{ settings()->description }}
-@endsection
+@section('description', settings()->description)
 
-@section('keywords')
-    {{ settings()->keywords }}
-@endsection
+@section('keywords', settings()->keywords)
 
 @section('content')
     <main class="container-fluid d-flex align-items-center py-3 overflow-hidden">

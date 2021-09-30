@@ -1,16 +1,10 @@
 @extends('layouts.app')
 
-@section('title')
-    {{ settings()->title }}
-@endsection
+@section('title', settings()->title)
 
-@section('description')
-    {{ settings()->description }}
-@endsection
+@section('description', settings()->description)
 
-@section('keywords')
-    {{ settings()->keywords }}
-@endsection
+@section('keywords', settings()->keywords)
 
 @section('content')
     <main class="container-fluid py-3 overflow-hidden" style="color:#7E57C2;">
@@ -34,12 +28,12 @@
                                 {{ strip_tags(Str::of($post->content)->limit(250)) }}
                             </div>
                             <div class="col-lg-2 col-12 mt-lg-0 mt-3 d-grid gap-3">
-                                <a class="my-auto" href="{{ route('post', ['title' => Str::slug($post->title, '_')]) }}">
+                                <a class="my-auto" href="{{ route('post', ['title' => $post->slug]) }}">
                                     <button class="btn btn-primary w-100 py-2">
                                         Pokaż post
                                     </button>
                                 </a>
-                                <a class="my-auto" href="{{ route('admin.posts.edit', ['title' => Str::slug($post->title, '_')]) }}">
+                                <a class="my-auto" href="{{ route('admin.posts.edit', ['title' => $post->slug]) }}">
                                     <button class="btn btn-success w-100 py-2">
                                         Edytuj
                                     </button>

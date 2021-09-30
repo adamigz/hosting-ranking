@@ -1,16 +1,10 @@
 @extends('layouts.app')
 
-@section('title')
-    {{ settings()->title }}
-@endsection
+@section('title', settings()->title)
 
-@section('description')
-    {{ settings()->description }}
-@endsection
+@section('description', settings()->description)
 
-@section('keywords')
-    {{ settings()->keywords }}
-@endsection
+@section('keywords', settings()->keywords)
 
 @section('content')
     <main class="container-fluid py-3 d-flex overflow-hidden" style="color:#7E57C2;">
@@ -29,7 +23,7 @@
                                 {{ strip_tags(Str::of($post->content)->limit(250)) }}
                             </div>
                             <div class="col-3 col-lg-2 d-flex align-items-center">
-                                <a class="m-auto" href="{{ route('post', ['title' => Str::slug($post->title, '_')]) }}">
+                                <a class="m-auto" href="{{ route('post', ['title' => $post->slug]) }}">
                                     <button class="btn btn-outline-warning w-100 py-2">
                                         Pokaż post
                                     </button>

@@ -1,16 +1,10 @@
 @extends('layouts.app')
 
-@section('title')
-    {{ $hosting->name.' - '.settings()->title }}
-@endsection
+@section('title', $hosting->name.' - '.settings()->title)
 
-@section('description')
-    {{ $hosting->desc == '' ? settings()->description : $hosting->desc }}
-@endsection
+@section('description', $hosting->desc == '' ? settings()->description : $hosting->desc)
 
-@section('keywords')
-    {{ $hosting->keywords == '' ? settings()->keywords : $hosting->keywords }}
-@endsection
+@section('keywords', $hosting->keywords == '' ? settings()->keywords : $hosting->keywords)
 
 @section('content')
     <main class="container-fluid py-3 d-flex overflow-hidden">

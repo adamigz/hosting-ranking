@@ -1,16 +1,10 @@
 @extends('layouts.app')
 
-@section('title')
-    {{ $post->title.' - '.settings()->title }}
-@endsection
+@section('title', $post->title.' - '.settings()->title)
 
-@section('description')
-    {{ $post->description == '' ? settings()->description : $post->description }}
-@endsection
+@section('description', $post->description == '' ? settings()->description : $post->description)
 
-@section('keywords')
-    {{ $post->keywords == '' ? settings()->keywords : $post->keywords }}
-@endsection
+@section('keywords', $post->keywords == '' ? settings()->keywords : $post->keywords)
 
 @section('content')
     <main class="container-fluid py-3 d-flex overflow-hidden" style="color:#7E57C2;">

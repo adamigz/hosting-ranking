@@ -1,20 +1,14 @@
 @extends('layouts/app')
 
-@section('title')
-    {{ settings()->title }}
-@endsection
+@section('title', settings()->title)
 
-@section('description')
-    {{ settings()->description }}
-@endsection
+@section('description', settings()->description)
 
-@section('keywords')
-    {{ settings()->keywords }}
-@endsection
+@section('keywords', settings()->keywords)
 
 @section('content')
     <main class="container-fluid d-flex align-items-center py-3 overflow-hidden">
-        <form action="{{ route('admin.editPost', ['title' => Str::slug($post->title, '_')]) }}" class="col-lg-9 col-11 mx-auto bg-light p-lg-5 p-4 rounded-3 shadow " method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin.editPost', ['title' => $post->slug]) }}" class="col-lg-9 col-11 mx-auto bg-light p-lg-5 p-4 rounded-3 shadow " method="post" enctype="multipart/form-data">
             @csrf
             @if ($errors->any())
                 <div class="alert alert-danger">

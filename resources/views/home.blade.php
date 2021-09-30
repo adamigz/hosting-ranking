@@ -1,16 +1,10 @@
 @extends('layouts.app')
 
-@section('title')
-    {{ settings()->title }}
-@endsection
+@section('title', settings()->title)
 
-@section('description')
-    {{ settings()->description }}
-@endsection
+@section('description', settings()->description)
 
-@section('keywords')
-    {{ settings()->keywords }}
-@endsection
+@section('keywords', settings()->keywords)
 
 @section('content')
     <main class="container-fluid py-3 d-flexoverflow-hidden" style="color:#7E57C2;">
@@ -29,7 +23,7 @@
                                 <div class="card-body">
                                     <p class="card-text" style="color:#320d3e;">{{ strip_tags(Str::of($post->content)->limit(250)) }}</p>
                                     <div class="d-flex justify-content-end">
-                                        <a href="{{ route('post', ['title' => Str::slug($post->title, '_')]) }}" class="btn btn-outline-warning" style="color:#320d3e;">Czytaj dalej</a>
+                                        <a href="{{ route('post', ['title' => $post->slug]) }}" class="btn btn-outline-warning" style="color:#320d3e;">Czytaj dalej</a>
                                     </div>
                                 </div>
                             </div>

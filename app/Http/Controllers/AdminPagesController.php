@@ -47,13 +47,11 @@ class AdminPagesController extends Controller
     }
     public function editPost($title)
     {
-        $title = Str::replace('_', ' ', $title);
-
-        Validator::make(['title' => $title], [
-            'title' => 'required|string|exists:posts,title'
+        Validator::make(['slug' => $title], [
+            'slug' => 'required|string|exists:posts,slug'
         ])->validate();
 
-        $post = Post::where('title', $title)->first();
+        $post = Post::where('slug', $title)->first();
 
         return view('admin.editPost', ['post' => $post]);
     }

@@ -30,13 +30,11 @@ class PagesController extends Controller
     }
     public function post($title)
     {
-        $title = Str::replace('_', ' ', $title);
-
-        Validator::make(['title' => $title], [
-            'title' => 'required|string|exists:posts,title'
+        Validator::make(['slug' => $title], [
+            'slug' => 'required|string|exists:posts,slug'
         ])->validate();
         
-        $post = Post::where('title', $title)->first();
+        $post = Post::where('slug', $title)->first();
 
         return view('post', ['post' => $post]);
     }
