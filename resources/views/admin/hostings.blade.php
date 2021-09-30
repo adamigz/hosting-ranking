@@ -18,6 +18,7 @@
                 </div>
             </div>
             <div class="card-body">
+                @if (count($hostings) > 0)
                 @foreach($hostings as $hosting)
                     <div class="card mb-4 shadow d-grid">
                         <div class="card-body row d-flex fs-5">
@@ -55,6 +56,11 @@
                         
                     </div>
                 @endforeach
+                @else 
+                    <div class="alert text-white d-flex justify-content-center col-12 col-lg-8 mx-auto" style="background-color: #7E57C2;">
+                        Nie ma hostingów do wyświetlenia
+                    </div>
+                @endif
             </div>
         </div>
     </main>

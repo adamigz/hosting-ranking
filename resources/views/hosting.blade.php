@@ -45,7 +45,7 @@
                 </form>
             </div>
             <div class="card-body d-grid gap-3">
-                @if(count($hosting->comments) != 0)
+                @if(count($hosting->comments) > 0)
                     @foreach($hosting->comments as $comment)
                     <div class="card shadow">
                         <div class="card-header" style="background-color: #7E57C2;">

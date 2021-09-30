@@ -15,6 +15,7 @@
                         <div class="card-title mb-3">
                             <h3>Ostanie posty na blogu</h3>
                         </div>
+                        @if(count($recentPosts) > 0)
                         @foreach($recentPosts as $post)
                             <div class="card mb-3 shadow">
                                 <div class="card-header text-white h5" style="background-color:#7E57C2;">
@@ -28,6 +29,11 @@
                                 </div>
                             </div>
                         @endforeach
+                        @else
+                            <div class="alert text-white d-flex justify-content-center col-12 col-lg-8 mx-auto" style="background-color: #7E57C2;">
+                                Nie ma postów do wyświetlenia
+                            </div>
+                        @endif
                     </div>
                 </div> 
             </div>
@@ -37,6 +43,7 @@
                         <div class="card-title mb-3">
                             <h3>Ranking hostingów</h3>
                         </div>
+                        @if(count($hostings) > 0)
                         <table class="table table-sm">
                             <thead>
                                 <tr>
@@ -84,6 +91,11 @@
                             </tbody>
                             
                         </table>
+                        @else
+                            <div class="alert text-white d-flex justify-content-center col-12 col-lg-8 mx-auto" style="background-color: #7E57C2;">
+                                Nie ma hostingów do wyświetlenia
+                            </div>
+                        @endif
                     </div>
                 </div> 
             </div>

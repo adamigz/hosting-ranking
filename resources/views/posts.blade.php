@@ -13,6 +13,7 @@
                 <div class="card-title mb-3" style="color:#7E57C2;">
                     <h3>Wszystkie posty</h3>
                 </div>
+                @if(count($posts) > 0)
                 @foreach($posts as $post)
                     <div class="card mb-4 shadow d-grid">
                         <div class="card-header h5" style="color: white;background-color: #7E57C2;">
@@ -32,6 +33,11 @@
                         </div>
                     </div>
                 @endforeach
+                @else
+                    <div class="alert text-white d-flex justify-content-center col-12 col-lg-8 mx-auto" style="background-color: #7E57C2;">
+                        Nie ma postów do wyświetlenia
+                    </div>
+                @endif
             </div>
         </div>
     </main>
