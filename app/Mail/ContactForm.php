@@ -32,9 +32,9 @@ class ContactForm extends Mailable
     {
         return $this->view('mails.contact')
                     ->with([
-                        'email' => $this->data->email,
-                        'title' => $this->data->title,
-                        'content' => $this->data->content,
+                        'email' => $this->data['email'],
+                        'title' => $this->data['title'],
+                        'content' => $this->data['content'],
                         'send_at' => date('Y-m-d H:i:s')
                     ]);
     }
