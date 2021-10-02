@@ -13,7 +13,7 @@
                 Skontaktuj się z nami
             </div>
             <div class="card-body">
-                <form action="{{ route('contact.send') }}" class="col-lg-9 col-11 mx-auto bg-light p-lg-5 p-4 rounded-3 shadow">
+                <form action="{{ route('contact.send') }}" method="post" class="col-lg-9 col-11 mx-auto bg-light p-lg-5 p-4 rounded-3 shadow">
                     @csrf
                     @if ($errors->any())
                         <div class="alert alert-danger">
