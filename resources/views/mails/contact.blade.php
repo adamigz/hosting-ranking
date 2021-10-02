@@ -12,7 +12,7 @@
             <b>Title</b> 
         </td>
         <td>
-            <p>{{ $email }}</p>
+            <p>{{ $title }}</p>
         </td>
     </tr>
     <tr>
@@ -20,7 +20,7 @@
             <b>Content</b> 
         </td>
         <td>
-            <p>{{ $email }}</p>
+            <p>{{ $content }}</p>
         </td>
     </tr>
     <tr>
@@ -28,7 +28,7 @@
             <b>Send at</b> 
         </td>
         <td>
-            <p>{{ $email }}</p>
+            <p>{{ $send_at }}</p>
         </td>
     </tr>
 </table>
