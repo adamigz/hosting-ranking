@@ -19,7 +19,7 @@ class MailController extends Controller
             'title' => 'string|required',
             'content' => 'string|required'
         ]);
-        dd($request->all());
+        
         Mail::to(settings()->mail)->send(new ContactForm($request->all()));
     }
 }
