@@ -39,7 +39,7 @@
                     <div class="row mb-3">
                         <label for="inputTitle" class="col-sm-2 col-form-label">Treść</label>
                         <div class="col-sm-10">
-                            <textarea type="text" rows="5" name="title" class="form-control" id="inputTitle"></textarea>
+                            <textarea type="text" rows="5" name="content" class="form-control" id="inputTitle"></textarea>
                         </div>
                     </div>
                     <input type="submit" class="btn btn-primary" value="Wyślij"/>
