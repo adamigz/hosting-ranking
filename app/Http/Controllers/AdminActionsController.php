@@ -140,7 +140,8 @@ class AdminActionsController extends Controller
         $validated = $request->validate([
             'title' => 'string|required',
             'description' => 'string|nullable',
-            'keywords' => 'string|nullable'
+            'keywords' => 'string|nullable',
+            'mail' => 'email|nullable'
         ]);
 
         $settings = Setting::first();
@@ -148,6 +149,7 @@ class AdminActionsController extends Controller
         $settings->title = $request->input('title');
         $settings->description = $request->input('description') ?? '';
         $settings->keywords = $request->input('keywords') ?? '';
+        $settings->mail = $request->input('mail') ?? '';
 
         $settings->save();
 

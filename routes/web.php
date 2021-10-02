@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\AdminPagesController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\Admin;
 use App\Http\Controllers\AdminActionsController;
 use App\Http\Controllers\PagesController;
-use Illuminate\Routing\RouteGroup;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ActionsController;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +23,8 @@ Route::get('/', [PagesController::class, 'index'])->name('home');
 Route::get('/hosting/{id}', [PagesController::class, 'hosting'])->name('hosting');
 Route::get('/post/{title}', [PagesController::class, 'post'])->name('post');
 Route::get('/posts', [PagesController::class, 'posts'])->name('posts');
+Route::get('/contact', [MailController::class, 'index'])->name('contact');
+Route::post('/contact/send', [MailController::class, 'send'])->name('contact.send');
 
 Route::group(['middleware'=>['auth']], function() {
     Route::get('/vote/{id}', [ActionsController::class, 'vote'])->name('vote');

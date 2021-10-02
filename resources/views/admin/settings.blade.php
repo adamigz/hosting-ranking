@@ -42,6 +42,12 @@
                             <textarea type="text" name="keywords" class="form-control" id="inputKeywords">{{ $settings->keywords }}</textarea>
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" name="mail" value="{{ $settings->mail }}" class="form-control" id="inputEmail">
+                        </div>
+                    </div>
                     <input type="submit" class="btn btn-primary" value="Zapisz"/>
                 </form>
             </div>

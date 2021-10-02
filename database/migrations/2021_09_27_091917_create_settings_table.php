@@ -18,6 +18,7 @@ class CreateSettingsTable extends Migration
             $table->text('title')->default('');
             $table->text('description')->default('');
             $table->text('keywords')->default('');
+            $table->text('mail')->default('');
             $table->timestamps();
         });
     }

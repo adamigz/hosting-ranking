@@ -19,7 +19,7 @@
                     </ul>
                 </div>
             @endif
-            <h3>Dodawanie nowego hostingu</h3>
+            <h3>Edycja posta</h3>
             <div class="row mb-3">
                 <label for="inputTitle" class="col-sm-2 col-form-label">Tytuł</label>
                 <div class="col-sm-10">

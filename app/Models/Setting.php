@@ -12,6 +12,7 @@ class Setting extends Model
     protected $fillable = [
         'title',
         'description',
-        'keywords'
+        'keywords', 
+        'mail'
     ];
 }
