@@ -1,4 +1,4 @@
-<table>
+<table bordered>
     <tr>
         <td>
             <b>Email</b> 
