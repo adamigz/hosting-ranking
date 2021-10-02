@@ -39,5 +39,6 @@
     <body style="background-color:#EDE7F6;">
         @include('layouts.navbar')
         @yield('content')
+        @include('layouts.footer')
     </body>
 </html>
