@@ -44,5 +44,9 @@ class PagesController extends Controller
 
         return view('posts', ['posts' => $posts]);
     }
+    public function privacy_policies()
+    {
+        return view('privacy-policies');
+    }
 }
 

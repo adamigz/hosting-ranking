@@ -5,7 +5,7 @@
         </a>
     </div>
     <div class="w-100 d-flex">
-        <a href="{{ route('contact') }}" class="link mx-auto fs-5 text-white">
+        <a href="{{ route('privacy-policies') }}" class="link mx-auto fs-5 text-white">
             Polityka prywatności
         </a>
     </div>

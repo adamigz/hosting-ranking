@@ -25,6 +25,7 @@ Route::get('/post/{title}', [PagesController::class, 'post'])->name('post');
 Route::get('/posts', [PagesController::class, 'posts'])->name('posts');
 Route::get('/contact', [MailController::class, 'index'])->name('contact');
 Route::post('/contact/send', [MailController::class, 'send'])->name('contact.send');
+Route::get('/privacy-policies', [PagesController::class, 'privacy_policies'])->name('privacy-policies');
 
 Route::group(['middleware'=>['auth']], function() {
     Route::get('/vote/{id}', [ActionsController::class, 'vote'])->name('vote');
