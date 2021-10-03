@@ -9,7 +9,7 @@
 @section('content')
     <main class="container-fluid py-3 d-flex overflow-hidden" style="color:#7E57C2;">
         <div class="card w-100">
-            <div class="card-header text-white fs-4 mb-3" style="background-color:#7E57C2;">
+            <div class="card-header text-white fs-5 mb-3" style="background-color:#7E57C2;">
                 <h3>Polityka prywatności</h3>
             </div>
             <div class="card-body">
