@@ -19,6 +19,7 @@ class AdminActionsController extends Controller
             'name' => 'required|max:20|string',
             'description' => 'required|string',
             'url' => 'required|url',
+            'logo' => 'required|file',
             'desc' => 'string|nullable',
             'keywords' => 'string|nullable'
         ]);
@@ -26,7 +27,7 @@ class AdminActionsController extends Controller
         $hosting = Hosting::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'logo_path' => $request->file('logo')->store('logos'),
+            'logo_path' => $request->file('logo')->store('logos') ?? '',
             'url' => $request->input('url'),
             'desc' => $request->input('desc') ?? '',
             'keywords' => $request->input('keywords') ?? ''

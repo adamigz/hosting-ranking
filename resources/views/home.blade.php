@@ -44,64 +44,83 @@
                             <h3>Ranking hostingów</h3>
                         </div>
                         @if(count($hostings) > 0)
-                        <table class="table table-sm">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Głosy</th>
-                                    <th scope="col">Nazwa</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($hostings as $index => $hosting) 
-                                    <tr onMouseOver="this.style.backgroundColor='#EDE7F6'"
-    onMouseOut="this.style.backgroundColor='#fff'">
-                                        <th scope="row">{{ $index+1 }}</th>
-                                        <td>
-                                            @auth
-                                            <a class="text-decoration-none" href="{{ route('vote', $hosting->id) }}">
-                                                @if(Auth::user()->votedOn($hosting->id))
-                                                <button class="btn d-flex btn-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-square-fill my-auto me-2" viewBox="0 0 16 16">
-                                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
-                                                    </svg>
-                                                    {{ $hosting->votes_count }}
-                                                </button>
-                                                @else
-                                                <button class="btn d-flex btn-warning">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-square my-auto me-2" viewBox="0 0 16 16">
-                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                                                    </svg>
-                                                    {{ $hosting->votes_count }}
-                                                </button>
-                                                @endif
-                                            </a>        
-                                            @endauth
-                                            @guest
-                                            <a href="{{ route('login') }}">
-                                                <button class="btn d-flex btn-warning">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-square my-auto me-2" viewBox="0 0 16 16">
-                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                                                    </svg>
-                                                    <abbr title="Musisz się zalogować, aby móc głosować" class="initialism">{{ $hosting->votes_count }}</abbr>
-                                                </button>
-                                            </a>
-                                            @endguest
-                                        </td>
-                                        <td>{{ $hosting->name }}</td>
-                                        <td>
-                                            <a href="{{ route('hosting', ['id' => $hosting->id]) }}">
-                                                <button class="btn btn-primary">Więcej</button>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                            
-                        </table>
+                            @foreach($hostings as $index => $hosting) 
+                                <div class="card shadow mb-3">
+                                    <div class="card-body row py-2">
+                                        <div class="col-3 d-flex">
+                                            @if($index == 0)
+                                                <p class="h1 m-auto" style="color:#fbc02d;">
+                                                    {{ $index+1 }}.
+                                                </p>
+                                            @elseif($index == 1)
+                                                <p class="h2 m-auto" style="color:#757575;">
+                                                    {{ $index+1 }}.
+                                                </p>
+                                            @elseif($index == 2)
+                                                <p class="h2 m-auto" style="color:#6d4c41;">
+                                                    {{ $index+1 }}.
+                                                </p>
+                                            @else
+                                                <p class="h3 m-auto">
+                                                    {{ $index+1 }}.
+                                                </p>
+                                            @endif
+                                        </div>
+                                        <div class="col-4 my-auto d-flex">
+                                            <div class="d-grid">
+                                                <div class="fs-5 mb-2">
+                                                    Głosy
+                                                </div>
+                                                <div>
+                                                    @auth
+                                                        @if(Auth::user()->votedOn($hosting->id))
+                                                            <a href="{{ route('vote', ['id' => $hosting->id]) }}">
+                                                                <button class="btn btn-success d-flex">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                                                                        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                                                    </svg>
+                                                                </button>
+                                                            </a>
+                                                        @else
+                                                            <a href="{{ route('vote', ['id' => $hosting->id]) }}">
+                                                                <button class="btn btn-warning d-flex">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                                    </svg>
+                                                                </button>
+                                                            </a>
+                                                        @endif
+                                                    @endauth
+                                                    @guest
+                                                        <a href="{{ route('login') }}">
+                                                            <button class="btn btn-warning d-flex">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                                </svg>
+                                                            </button>
+                                                        </a>
+                                                    @endguest
+                                                </div>
+                                            </div>
+                                            <p class="my-auto ms-3 fs-2">
+                                                {{ $hosting->votes_count }}
+                                            </p>
+                                        </div>
+                                        <div class="col d-grid">
+                                            <div class="row mx-auto">
+                                                <p class="fs-4">{{ $hosting->name }}</p>
+                                            </div>
+                                            <div class="row mx-auto">
+                                                <a href="{{ route('hosting', ['id' => $hosting->id]) }}">
+                                                    <button class="btn btn-primary">
+                                                        Więcej
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         @else
                             <div class="alert text-white d-flex justify-content-center col-12 col-lg-8 mx-auto" style="background-color: #7E57C2;">
                                 Nie ma hostingów do wyświetlenia
