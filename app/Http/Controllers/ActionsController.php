@@ -8,7 +8,7 @@ use App\Models\Comment;
 use App\Models\Rate;
 use App\Models\Hosting;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Cookie;
 
 class ActionsController extends Controller
 {
@@ -17,24 +17,27 @@ class ActionsController extends Controller
         Validator::make(['id' => $id], [
             'id' => 'required|integer|exists:hostings,id'
         ])->validate();
+
+        $cookie = $request->cookie($id);
         
         $hosting = Hosting::find($id);
 
-        if ($hosting == null) redirect()->route('home');
-
-        if ($request->user()->votedOn($id)) {
-            $vote = Vote::where('hosting_id', $id)->where('user_id', $request->user()->id)->first();
+        if ($request->cookie($id)) {
+            $vote = Vote::where('hosting_id', $id)->first();
             $vote->forceDelete();
             
+            Cookie::queue(Cookie::forget($id));
+
             $hosting->votes_count--;
             $hosting->save();
 
             return redirect()->back();
         } else {
             Vote::create([
-                'hosting_id' => $id, 
-                'user_id' => $request->user()->id
+                'hosting_id' => $id
             ]);
+
+            Cookie::queue($id, true, 60*24*3);
 
             $hosting->votes_count++;
             $hosting->save();

@@ -13,7 +13,7 @@
           <a class="nav-link" id="blog-link" href="{{ route('posts') }}">Blog</a>
         </li>
       </ul>
-      @guest
+      <!--@guest
         <div class="d-flex">
           <a class="nav-link" href="{{ route('login') }}">
             <button class="btn btn-outline-light fs-5">
@@ -26,7 +26,7 @@
             </button>
           </a>
         </div>
-      @endguest
+      @endguest-->
       @auth
         <div class="d-flex">
           <span class="navbar-text d-flex align-items-center text-white">Witaj,&nbsp;<span class="d-flex align-items-center text-decoration-underline">{{ Auth::user()->name }}</span></span>

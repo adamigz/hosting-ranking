@@ -53,11 +53,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row mb-3">
+            <!--<div class="row mb-3">
                 <div class="link align-end">
                     <a style="color: #7E57C2;" href="{{ route('register') }}">Nie mam konta</a>
                 </div>
-            </div>
+            </div>-->
             <input type="submit" class="btn btn-primary" value="Zaloguj"/>
         </form>
     </div>

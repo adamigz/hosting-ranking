@@ -44,13 +44,4 @@ class User extends Authenticatable
     
     public function isAdmin() { return $this->id == 1; }
 
-    public function votedOn($id)
-    {
-        return Vote::where('hosting_id', $id)->where('user_id', $this->id)->first();
-    }
-
-    public function votes()
-    {
-        return $this->hasMany(Vote::class);
-    }
 }
