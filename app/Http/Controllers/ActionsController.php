@@ -21,12 +21,13 @@ class ActionsController extends Controller
 
         $hosting = Hosting::find($id);
 
-        if (Cookie::get($id)) {
-            $vote = Vote::where('hosting_id', $id, 'AND', 'uid', Cookie::get('uid'.$id))->first();
+        if ($request->cookie($id)) {
+            $vote = Vote::where('hosting_id', $id)
+                        ->where('uid', Cookie::get('uid'.$id))->first();
             $vote->forceDelete();
             
-            Cookie::queue(Cookie::forget($id));
-            Cookie::queue(Cookie::forget('uid'.$id));
+            Cookie::expire($id);
+            Cookie::expire('uid'.$id);
 
             $hosting->votes_count--;
             $hosting->save();
@@ -37,11 +38,11 @@ class ActionsController extends Controller
 
             Vote::create([
                 'hosting_id' => $id, 
-                'uid' => $hash
+                'uid' => "$hash"
             ]);
 
-            Cookie::forever($id, true);
-            Cookie::forever('uid'.$id, $hash);
+            Cookie::queue(Cookie::forever($id, true));
+            Cookie::queue(Cookie::forever('uid'.$id, "$hash"));
 
             $hosting->votes_count++;
             $hosting->save();
