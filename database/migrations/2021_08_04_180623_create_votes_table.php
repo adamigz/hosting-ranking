@@ -16,6 +16,7 @@ class CreateVotesTable extends Migration
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('hosting_id');
+            $table->string('uid');
             $table->timestamps();
         });
     }

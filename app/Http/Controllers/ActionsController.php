@@ -9,6 +9,7 @@ use App\Models\Rate;
 use App\Models\Hosting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 
 class ActionsController extends Controller
 {
@@ -18,26 +19,29 @@ class ActionsController extends Controller
             'id' => 'required|integer|exists:hostings,id'
         ])->validate();
 
-        $cookie = $request->cookie($id);
-        
         $hosting = Hosting::find($id);
 
-        if ($request->cookie($id)) {
-            $vote = Vote::where('hosting_id', $id)->first();
+        if (Cookie::get($id)) {
+            $vote = Vote::where('hosting_id', $id, 'AND', 'uid', Cookie::get('uid'.$id))->first();
             $vote->forceDelete();
             
             Cookie::queue(Cookie::forget($id));
+            Cookie::queue(Cookie::forget('uid'.$id));
 
             $hosting->votes_count--;
             $hosting->save();
 
             return redirect()->back();
         } else {
+            $hash = Hash::make(now());
+
             Vote::create([
-                'hosting_id' => $id
+                'hosting_id' => $id, 
+                'uid' => $hash
             ]);
 
-            Cookie::queue($id, true, 60*24*3);
+            Cookie::forever($id, true);
+            Cookie::forever('uid'.$id, $hash);
 
             $hosting->votes_count++;
             $hosting->save();
