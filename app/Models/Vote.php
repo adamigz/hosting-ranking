@@ -13,7 +13,7 @@ class Vote extends Model
     
     protected $fillable = [
         'hosting_id',
-        'user_id'
+        'uid'
     ];
 
     public function hosting()
