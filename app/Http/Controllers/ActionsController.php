@@ -58,19 +58,19 @@ class ActionsController extends Controller
         
         $validated = $request->validate([
             'content' => 'required|string',
-            'rate' => 'integer'
+            'rate' => 'numeric',
+            'nickname' => 'required|string',
         ]);
         
         $comment = Comment::create([
             'content' => $request->input('content'),
-            'user_id' => $request->user()->id,
+            'nickname' => $request->input('nickname'),
             'hosting_id' => $id
         ]);
 
         if ($request->input('rate')+0 > 0) {
             Rate::create([
                 'value' => $request->input('rate')+0, 
-                'user_id' => $request->user()->id,
                 'comment_id' => $comment->id
             ]);
         }

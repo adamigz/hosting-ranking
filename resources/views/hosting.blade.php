@@ -24,24 +24,32 @@
             </div>
             <div class="card-body d-flex px-4">
                 <h4>Komentarze</h4>
-                @auth
                 <div class="ms-auto">
                     <button id="addCommentButton" class="btn btn-warning">Dodaj komentarz</button>
                 </div>
-                @endauth
-                @guest
-                <div class="ms-auto">
-                    <a href="{{ route('login') }}">
-                        <button class="btn btn-warning">Zaloguj się, aby dodać komentarz</button>
-                    </a>
-                </div>
-                @endguest
             </div>
-            <div class="px-4" id="addCommentForm" style="visibility: hidden; height: 0px;">
-                <form class="w-75 mx-auto d-flex" action="{{ route('addComment', ['id' => $hosting->id]) }}" method="post">
+            <div id="addCommentForm" style="visibility: hidden; height: 0px;">
+                <form class="w-75 mx-auto" action="{{ route('addComment', ['id' => $hosting->id]) }}" method="post">
                     @csrf
-                    <textarea class="form-control me-3" placeholder="Treść komentarza" name="content" rows="3" required></textarea>
-                    <input type="submit" class="btn btn-outline-warning" value="Dodaj komentarz">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="d-grid mb-3">
+                        <label for="nicknameInput">Nazwa użytkownika</label>
+                        <input type="text" name="nickname" class="form-control" id="nicknameInput" required>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <textarea class="form-control" placeholder="Treść komentarza" name="content" rows="3" required></textarea>
+                    </div>
+                    <div class="d-flex">
+                        <input type="submit" class="btn btn-outline-warning ms-auto" value="Dodaj komentarz">
+                    </div>
                 </form>
             </div>
             <div class="card-body d-grid gap-3">
@@ -49,7 +57,7 @@
                     @foreach($hosting->comments as $comment)
                     <div class="card shadow">
                         <div class="card-header" style="background-color: #7E57C2;">
-                            <h5 class="text-white my-auto">{{ $comment->user->name }}</h5>
+                            <h5 class="text-white my-auto">{{ $comment->nickname }}</h5>
                         </div>
                         <div class="card-body" style="color: #512DA8;">
                             <div class="row ps-4">
@@ -81,7 +89,6 @@
         
         addCommentButton.addEventListener('click', (e) => {
             e.preventDefault();
-            
             addCommentForm.style.visibility = 'visible';
             addCommentForm.style.height = 'auto';
             addCommentButton.style.visibility = 'hidden';

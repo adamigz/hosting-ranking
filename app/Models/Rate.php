@@ -11,7 +11,6 @@ class Rate extends Model
 
     protected $fillable = [
         'value',
-        'user_id',
         'comment_id'
     ];
     
