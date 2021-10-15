@@ -10,22 +10,28 @@ use App\Models\Hosting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use App\Models\IpList;
 
 class ActionsController extends Controller
 {
     public function vote($id, Request $request)
     {
+        $ip = $request->ip();
+
         Validator::make(['id' => $id], [
             'id' => 'required|integer|exists:hostings,id'
         ])->validate();
 
         $hosting = Hosting::find($id);
-
+        
         if ($request->cookie($id)) {
             $vote = Vote::where('hosting_id', $id)
                         ->where('uid', Cookie::get('uid'.$id))->first();
             $vote->forceDelete();
-            
+
+            $ipToDelete = IpList::where('ip', $ip)->first();
+            $ipToDelete == null ? :$ipToDelete->delete();
+
             Cookie::expire($id);
             Cookie::expire('uid'.$id);
 
@@ -34,19 +40,28 @@ class ActionsController extends Controller
 
             return redirect()->back();
         } else {
-            $hash = Hash::make(now());
+            if (IpList::where('ip', $ip)->first() == null) {
+                $hash = Hash::make(now());
 
-            Vote::create([
-                'hosting_id' => $id, 
-                'uid' => "$hash"
-            ]);
+                Vote::create([
+                    'hosting_id' => $id, 
+                    'uid' => "$hash"
+                ]);
 
-            Cookie::queue(Cookie::forever($id, true));
-            Cookie::queue(Cookie::forever('uid'.$id, "$hash"));
+                $expiration_date = new \DateTime(date('Y-m-d'));
+                $expiration_date->modify('+30 days');
 
-            $hosting->votes_count++;
-            $hosting->save();
+                IpList::create([
+                    'ip' => $ip,
+                    'expiration_date' => $expiration_date
+                ]);
 
+                Cookie::queue(Cookie::forever($id, true));
+                Cookie::queue(Cookie::forever('uid'.$id, "$hash"));
+
+                $hosting->votes_count++;
+                $hosting->save();
+            }
             return redirect()->back();
         }
     }
