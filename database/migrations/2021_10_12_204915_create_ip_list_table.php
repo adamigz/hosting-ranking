@@ -14,6 +14,7 @@ class CreateIpListTable extends Migration
     public function up()
     {
         Schema::create('ip_list', function (Blueprint $table) {
+            $table->id();
             $table->ipAddress('ip');
             $table->text('expiration_date');
             $table->timestamps();
